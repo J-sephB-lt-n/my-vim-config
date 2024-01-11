@@ -1,4 +1,3 @@
-
 " useful resource: https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
 
 " Disable compatibility with vi which can cause unexpected issues.
@@ -96,7 +95,7 @@ noremap <leader>cp I#<space><esc>0| " comment python line
 noremap <leader>cpp :s/^\s*#\s\{0,1}//g<cr>| " uncomment python line
 noremap <leader>ch I<!--<space><esc>A<space>--><esc>0| " comment html line
 nnoremap <leader>fp :w<cr>:!python -m black %<cr>| " auto-format current python script
-nnoremap <leader>lp :term ++shell mypy % & pylint %<cr>| " run linters and static code analysers
+nnoremap <leader>lp :!clear<cr>:!mypy %<cr>:!pylint %<cr>:!flake8 %<cr>| " python static code analysis 
 
 " Define custom commands
 " python boilerplate code
@@ -104,3 +103,5 @@ nnoremap <leader>lp :term ++shell mypy % & pylint %<cr>| " run linters and stati
 :command InitPythonMultiCore normal! 0i# Run function my_function on multiple cores #<cr>import concurrent.futures<cr>from typing import Iterator<cr>with concurrent.futures.ProcessPoolExecutor() as executor:<cr>result: Iterator = executor.map(my_function, tuple_containing_input_for_each_function_call)<cr># e.g. executor.map(sum, ((60,9), (100,300,20)))<Esc><cr>
 :command InitPythonMultiThread normal! 0i# Run function my_function on multiple threads #<cr>import concurrent.futures<cr>from typing import Iterator<cr>with concurrent.futures.ThreadPoolExecutor() as executor:<cr>result: Iterator = executor.map(my_function, tuple_containing_input_for_each_function_call)<cr># e.g. executor.map(sum, ((60,9), (100,300,20)))<Esc><cr>
 :command InitPythonArgparse normal! 0i# python my_script_name.py abc def --debug --filename temp.html -n 69<cr>import argparse<cr>parser = argparse.ArgumentParser()<cr>parser.add_argument(dest="arg1") # script will raise an error if this argument is not supplied<cr>parser.add_argument(dest="arg2") # script will raise an error if this argument is not supplied<cr>parser.add_argument(<cr># an optional boolean flag<cr>"-d",<cr>"--debug",<cr>help="save intermediate process outputs to disk, for debugging purposes (do not use in production)",<cr>action="store_true", # if user doesn't provide this flag, give it the value False<cr>)<cr>parser.add_argument(<cr># a string constant <cr>"-f",<cr>"--filename",<cr>help="name of file to process",<cr># action="store", "store" is the default value (i.e. just save the value)<cr>required=True, # this command line argument is required. The default value for is False<cr>)<cr>parser.add_argument(<cr>"-s",<cr>"--style",<cr>help="style to apply to visual process output",<cr>default="plain",<cr>choices=["plain","elegant","dark"]<cr>)<cr>parser.add_argument(<cr>"-n",<cr>"--sample_size",<cr>help="size of random sample",<cr>type=int, # convert user input into an integer<cr>)<cr>args = parser.parse_args()<cr>print( "args.arg1", args.arg1 )<cr>print( "args.arg2", args.arg2 )<cr>print( "args.debug", args.debug )<cr>print( "args.filename", args.filename )<cr>print( "args.style", args.style )<cr>print( "args.sample_size", args.sample_size )<cr>
+
+
