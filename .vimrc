@@ -96,6 +96,7 @@ noremap <leader>cpp :s/^\s*#\s\{0,1}//g<cr>| " uncomment python line
 noremap <leader>ch I<!--<space><esc>A<space>--><esc>0| " comment html line
 nnoremap <leader>fp :w<cr>:!python -m black %<cr>| " auto-format current python script
 nnoremap <leader>lp :!clear<cr>:!echo "---MYPY---"<cr>:!mypy %<cr>:!echo "---PYLINT---"<cr>:!pylint %<cr>:!echo "---FLAKE8---"<cr>:!flake8 %<cr>| " python static code analysis 
+nnoremap <leader>lpp :!clear<cr>:!pylint --disable=R,C %<cr>| " basic python static code analysis (warnings and errors only)
 
 " Define custom commands
 " python boilerplate code
