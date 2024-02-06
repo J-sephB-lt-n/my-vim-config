@@ -99,6 +99,7 @@ nnoremap <leader>lp :!clear<cr>:!echo "---MYPY---"<cr>:!mypy --ignore-missing-im
 nnoremap <leader>lpp :!clear<cr>:!pylint --disable=R,C %<cr>| " basic python static code analysis (warnings and errors only)
 nnoremap <leader>mc I```<cr><cr>```<Up><Up>| " Make a markdown code block
 nnoremap <leader>fj :w<cr>:!npx prettier --write %<cr>| " auto-format current javascript file (with prettier)  
+nnoremap <leader>fws :%s/\s\+$//ge<cr>| " Delete all trailing whitespaces in document 
 
 " Define custom commands
 " python boilerplate code
