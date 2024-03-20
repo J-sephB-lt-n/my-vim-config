@@ -87,6 +87,13 @@ colorscheme slate
 " reload file if is detected to have changed externally
 set autoread
 
+" my functions
+function LintPython()
+    :!mypy % 
+    :!pylint %
+    :!flake8 %
+endfunction
+
 " Define key-mappings (shortcuts)
 map <Space> <Leader>
 nnoremap <leader>bn :bnext<cr>| " go to next file in buffer
@@ -96,7 +103,7 @@ noremap <leader>cp I#<space><esc>0| " comment python line
 noremap <leader>cpp :s/^\s*#\s\{0,1}//g<cr>| " uncomment python line
 noremap <leader>ch I<!--<space><esc>A<space>--><esc>0| " comment html line
 nnoremap <leader>fp :w<cr>:!python -m black %<cr>| " auto-format current python script (with black)
-nnoremap <leader>lp :!clear<cr>:!echo "---MYPY---"<cr>:!mypy --ignore-missing-imports %<cr>:!echo "---PYLINT---"<cr>:!pylint %<cr>:!echo "---FLAKE8---"<cr>:!flake8 %<cr>| " python static code analysis 
+nnoremap <leader>lp :call LintPython() <cr>
 nnoremap <leader>lpp :!clear<cr>:!pylint --disable=R,C %<cr>| " basic python static code analysis (warnings and errors only)
 nnoremap <leader>mc I```<cr><cr>```<Up><Up>| " Make a markdown code block
 nnoremap <leader>fj :w<cr>:!npx prettier --write %<cr>| " auto-format current javascript file (with prettier)  
@@ -115,3 +122,4 @@ xnoremap <leader>y "*y| " Copy selection to system clipboard
 :command InitPythonMultiThread normal! 0i# Run function my_function on multiple threads #<cr>import concurrent.futures<cr>from typing import Iterator<cr>with concurrent.futures.ThreadPoolExecutor() as executor:<cr>result: Iterator = executor.map(my_function, tuple_containing_input_for_each_function_call)<cr># e.g. executor.map(sum, ((60,9), (100,300,20)))<Esc><cr>
 :command InitPythonArgparse normal! 0i# python my_script_name.py abc def --debug --filename temp.html -n 69<cr>import argparse<cr>parser = argparse.ArgumentParser()<cr>parser.add_argument(dest="arg1") # script will raise an error if this argument is not supplied<cr>parser.add_argument(dest="arg2") # script will raise an error if this argument is not supplied<cr>parser.add_argument(<cr># an optional boolean flag<cr>"-d",<cr>"--debug",<cr>help="save intermediate process outputs to disk, for debugging purposes (do not use in production)",<cr>action="store_true", # if user doesn't provide this flag, give it the value False<cr>)<cr>parser.add_argument(<cr># a string constant <cr>"-f",<cr>"--filename",<cr>help="name of file to process",<cr># action="store", "store" is the default value (i.e. just save the value)<cr>required=True, # this command line argument is required. The default value for is False<cr>)<cr>parser.add_argument(<cr>"-s",<cr>"--style",<cr>help="style to apply to visual process output",<cr>default="plain",<cr>choices=["plain","elegant","dark"]<cr>)<cr>parser.add_argument(<cr>"-n",<cr>"--sample_size",<cr>help="size of random sample",<cr>type=int, # convert user input into an integer<cr>)<cr>args = parser.parse_args()<cr>print( "args.arg1", args.arg1 )<cr>print( "args.arg2", args.arg2 )<cr>print( "args.debug", args.debug )<cr>print( "args.filename", args.filename )<cr>print( "args.style", args.style )<cr>print( "args.sample_size", args.sample_size )<cr>
 :command InitPythonGoogleFunctionDocstring normal! a<cr>"""Example google-style docstring<cr><cr>Args:<cr>param1 (int): The first parameter.<cr>param2 (int): The second parameter.<cr>param3 (str): The third parameter.<cr><cr><C-h>Returns:<cr>    bool: True if successful, False otherwise.<cr><cr><C-h>Raises:<cr>    ValueError: If `param2` is equal to `param1`.<cr><cr><C-H>Examples:<cr>    Examples should be written in doctest format, and should illustrate how<cr>to use the function.<cr><cr>>>> this_function(param1=69, param2=420, param3="test")<cr>[0, 1, 2, 3]<cr><C-h><C-h>"""<Esc><cr>
+
